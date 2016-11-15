@@ -12,6 +12,7 @@ class BinarySearchTree{
         T content;
         BST<T>* left;
         BST<T>* right;
+        bool del(BST* tree);
     public:
         BinarySearchTree();
         ~BinarySearchTree();
@@ -19,7 +20,6 @@ class BinarySearchTree{
         bool remove(const T &value);
         bool find(const T &value) const;
         void display() const;
-
         BST<T>* getLeft();
         BST<T>* getRight();
         void setLeft();
