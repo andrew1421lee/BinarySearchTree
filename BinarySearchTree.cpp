@@ -1,7 +1,8 @@
 #include "BinarySearchTree.h"
 
 template <class T>
-BinarySearchTree<T>::BinarySearchTree(){
+BinarySearchTree<T>::BinarySearchTree(const T &value){
+    content = value;
     left = nullptr;
     right = nullptr;
 }
@@ -15,34 +16,43 @@ template <class T>
 BinarySearchTree<T>::~BinarySearchTree(){
     //TODO
 }
+/*
+template <class Y>
+bool del(BST<Y>* tree){
+    //
+}*/
 
-template <class T>
-bool del(BST<T>* tree){
+template <class Y>
+bool delNode(BST<Y>* node){
     //TODO
 }
-
-template <class T>
-bool delNode(BST<T>* node){
-    //TODO
-}
-
-template <class T>
-BST<T>* getParent(BST<T>* node){
-    //TODO
-}
+/*
+template <class Y>
+BST<Y>* getParent(BST<Y>* node){
+    //
+}*/
 
 template <class T>
 bool BinarySearchTree<T>::insert(const T &value){
     //TODO
-    if(!left && value < content){
-        left = new BinarySearchTree<T>;
-        left->setContent(value);
+    if(value < this.content){
+        //go left
+        if(!left){
+            left = new BST<T>(value);
+            return true;
+        }else{
+            left->insert(value);
+        }
+    }else if(value > this.content){
+        //go right
+        if(!right){
+            right = new BST<T>(value);
+            return true;
+        }else{
+            right->insert(value);
+        }
     }
-    else if(right){
-        right->insert(value);
-    }else if(!left){
-        
-    }
+    return false;
 }
 
 template <class T>
