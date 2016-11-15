@@ -1,4 +1,5 @@
 #include "BinarySearchTree.h"
+using namespace std;
 
 template <class T>
 BinarySearchTree<T>::BinarySearchTree(const T &value){
@@ -72,7 +73,9 @@ bool BinarySearchTree<T>::find(const T &value) const{
 
 template <class T>
 void BinarySearchTree<T>::display() const{
-    //TODO
+        if (!left) left->display();
+        cout << content << end;
+        if (!right) right->display();
 }
 
 template <class T>
