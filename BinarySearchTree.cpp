@@ -7,19 +7,33 @@ BinarySearchTree<T>::BinarySearchTree(){
 }
 
 template <class T>
-BinarySearchTree<T>::~BinarySearchTree(){}
+BinarySearchTree<T>::BinarySearchTree(BST<T>* head, BST<T>* left, BST<T>* right){
+    //TODO
+}
 
 template <class T>
-bool del(BST<T>* tree){}
+BinarySearchTree<T>::~BinarySearchTree(){
+    //TODO
+}
 
 template <class T>
-bool delNode(BST<T>* node){}
+bool del(BST<T>* tree){
+    //TODO
+}
 
 template <class T>
-BST<T>* getParent(BST<T>* node){}
+bool delNode(BST<T>* node){
+    //TODO
+}
+
+template <class T>
+BST<T>* getParent(BST<T>* node){
+    //TODO
+}
 
 template <class T>
 bool BinarySearchTree<T>::insert(const T &value){
+    //TODO
     if(!left && value < content){
         left = new BinarySearchTree<T>;
         left->setContent(value);
@@ -32,28 +46,33 @@ bool BinarySearchTree<T>::insert(const T &value){
 }
 
 template <class T>
+bool BinarySearchTree<T>::insert(BST<T>* tree){
+    //TODO
+}
+
+template <class T>
 bool BinarySearchTree<T>::remove(const T &value){
-    
+    //TODO
 }
 
 template <class T>
 bool BinarySearchTree<T>::find(const T &value) const{
-
+    //TODO
 }
 
 template <class T>
 void BinarySearchTree<T>::display() const{
-
+    //TODO
 }
 
 template <class T>
 BST<T>* BinarySearchTree<T>::getLeft(){
-
+    return this.left;
 }
 
 template <class T>
 BST<T>* BinarySearchTree<T>::getRight(){
-
+    return this.right;
 }
 
 template <class T>
