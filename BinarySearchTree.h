@@ -2,6 +2,7 @@
 #define _BinarySearchTree_H_
 
 #include <iostream>
+#include <string>
 
 template <class T>
 class BinarySearchTree

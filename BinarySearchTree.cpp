@@ -178,3 +178,4 @@ BinarySearchTree<T>::~BinarySearchTree<T>()
 
 // Add possible types
 template class BinarySearchTree<int>;
+template class BinarySearchTree<string>;
