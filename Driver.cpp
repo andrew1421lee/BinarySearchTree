@@ -17,21 +17,26 @@ void timeval_print(char *str, struct timeval *tv)
 }
 
 int main(){
-        struct timeval tvDIFF, tvStart, tvEnd;
+    struct timeval tvDIFF, tvStart, tvEnd;
 
-        /*Timer:*/
+    /*Timer:*/
 
-        gettimeofday(&tvStart, NULL);
+    gettimeofday(&tvStart, NULL);
 
-        /*PUT FUNCTION HERE*/
+    /*PUT FUNCTION HERE*/
+    BST<int>* Hi = new BST<int>(5);
+    Hi->insert(20);
+    Hi->insert(2);
+    Hi->insert(30);
+    Hi->display();
 
-        gettimeofday(&tvEnd, NULL);
+    gettimeofday(&tvEnd, NULL);
 
-        timeval_subtract(&tvDIFF, &tvEnd, &tvStart);
-        timeval_print ("This took: ", &tvDIFF);
-       /* char str[] = {'T', 'h', 'i', 's', ' ', 't', 'o', 'o', 'k', ':', ' '};
-        timeval_print(str, &tvDIFF);*/
+    timeval_subtract(&tvDIFF, &tvEnd, &tvStart);
+    timeval_print ("This took: ", &tvDIFF);
+   /* char str[] = {'T', 'h', 'i', 's', ' ', 't', 'o', 'o', 'k', ':', ' '};
+    timeval_print(str, &tvDIFF);*/
 
-        return 0;
+    return 0;
 }
 

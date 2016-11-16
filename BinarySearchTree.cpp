@@ -36,7 +36,7 @@ BST<Y>* getParent(BST<Y>* node){
 template <class T>
 bool BinarySearchTree<T>::insert(const T &value){
     //TODO
-    if(value < this.content){
+    if(value < content){
         //go left
         if(!left){
             left = new BST<T>(value);
@@ -44,7 +44,7 @@ bool BinarySearchTree<T>::insert(const T &value){
         }else{
             left->insert(value);
         }
-    }else if(value > this.content){
+    }else if(value > content){
         //go right
         if(!right){
             right = new BST<T>(value);
@@ -73,32 +73,34 @@ bool BinarySearchTree<T>::find(const T &value) const{
 
 template <class T>
 void BinarySearchTree<T>::display() const{
-        if (!left) left->display();
-        cout << content << end;
-        if (!right) right->display();
+        if (left) left->display();
+        cout << content << endl;
+        if (right) right->display();
 }
 
 template <class T>
 BST<T>* BinarySearchTree<T>::getLeft(){
-    return this.left;
+    return left;
 }
 
 template <class T>
 BST<T>* BinarySearchTree<T>::getRight(){
-    return this.right;
+    return right;
 }
 
 template <class T>
 void BinarySearchTree<T>::setLeft(BST<T>* node){
-    this.left = node;
+    left = node;
 }
 
 template <class T>
 void BinarySearchTree<T>::setRight(BST<T>* node){
-    this.right = node;
+    right = node;
 }
 
 template <class T>
 void BinarySearchTree<T>::setContent(const T &value){
-    this.content = value;
+    content = value;
 }
+
+template class BinarySearchTree<int>;
