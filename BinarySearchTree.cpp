@@ -138,14 +138,14 @@ BinarySearchTree<T>* BinarySearchTree<T>::getRight() const
 	return right;
 }
 
-//Sets the content of the current tree to value
+// Sets the content of the current tree to value
 template <class T>
 T BinarySearchTree<T>::getContent() const
 {
 	return content;
 }
 
-//Sets the left pointer to tree
+// Sets the left pointer to tree
 template <class T>
 void BinarySearchTree<T>::setLeft(BinarySearchTree<T>* tree)
 {
