@@ -2,9 +2,15 @@
 #include <stdlib.h>
 #include "BinarySearchTree.h"
 
+using namespace std;
+
 #define BST BinarySearchTree
 
-using namespace std;
+// Change the number of iterations for the tests here
+#define TEST_ITERATIONS 20000
+
+// Print trees?
+#define PRINT_TREES 0
 
 // Calculates time difference
 int timeval_subtract(struct timeval *result, struct timeval *t2, struct timeval *t1);
@@ -12,54 +18,55 @@ int timeval_subtract(struct timeval *result, struct timeval *t2, struct timeval 
 // Prints time taken in seconds and micro seconds
 void timeval_print(string str, struct timeval *tv);
 
-// Generates a random string with length len and only lower case letters
-string rand_str(const int len);
-
+// Main Function:
+// Running tests for balanced tree and unbalanced tree
 int main()
 {
     struct timeval tvDIFF, tvStart, tvEnd;
-	
-	// Testing with integers
+
+	// Testing with integers (balanced tree)
 	{
-		cout << "Testing 1000 integers:" << endl << endl;
+		cout << "Testing " << TEST_ITERATIONS << " integers (balanced tree):" << endl << endl;
 
 		// Start timer
 		gettimeofday(&tvStart, NULL);
+		cout << "Timer start" << endl << endl;
 
 		// Make tree
-		BST<int>* tree = new BST<int>(50000);
-		for (int i = 0; i < 1000; i++) tree->insert(rand() % 100000);
+		BST<int>* tree = new BST<int>(500000);
+		for (unsigned int i = 0; i < TEST_ITERATIONS; i++) tree->insert(rand() % 1000000);
 
-		tree->display();
+		if (PRINT_TREES) tree->display();
 
 		// Stop timer
 		gettimeofday(&tvEnd, NULL);
+		cout << "Timer end" << endl << endl;
 
 		timeval_subtract(&tvDIFF, &tvEnd, &tvStart);
-		cout << endl;
 		timeval_print ("This took: ", &tvDIFF);
 
 		cout << "--------------------------------" << endl;
 	}
 
-	// Testing with strings
+	// Testing with integers (unbalanced tree)
 	{
-		cout << "Testing 1000 strings:" << endl << endl;
+		cout << "Testing " << TEST_ITERATIONS << " integers (unbalanced tree):" << endl << endl;
 
 		// Start timer
 		gettimeofday(&tvStart, NULL);
+		cout << "Timer start" << endl << endl;
 
 		// Make tree
-		BST<string>* tree = new BST<string>("hello");
-		for (int i = 0; i < 1000; i++) tree->insert(rand_str(rand() % 10));
+		BST<int>* tree = new BST<int>(1);
+		for (int i = 0; i < TEST_ITERATIONS; i++) tree->insert(i+2);
 
-		tree->display();
+		if (PRINT_TREES) tree->display();
 
 		// Stop timer
 		gettimeofday(&tvEnd, NULL);
+		cout << "Timer end" << endl << endl;
 
 		timeval_subtract(&tvDIFF, &tvEnd, &tvStart);
-		cout << endl;
 		timeval_print ("This took: ", &tvDIFF);
 
 		cout << "--------------------------------" << endl;
@@ -83,16 +90,4 @@ void timeval_print(string str, struct timeval *tv)
 	cout << str;
     printf("%ld sec, %06ld micro sec", tv->tv_sec, tv->tv_usec);
 	cout << endl;
-}
-
-// Generates a random string with length len and only lower case letters
-string rand_str(const int len)
-{
-	char cstr[len];
-    static const char chars[] = "abcdefghijklmnopqrstuvwxyz";
-    for (int i = 0; i < len; ++i)
-		cstr[i] = chars[rand() % (sizeof(chars) - 1)];
-	cstr[len] = 0;
-	string str = cstr;
-	return str;
 }
