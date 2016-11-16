@@ -1,4 +1,8 @@
+#include <sys/time.h>
+#include <string>
 #include "BinarySearchTree.h"
+
+#define BST BinarySearchTree
 
 using namespace std;
 
@@ -11,32 +15,30 @@ int timeval_subtract(struct timeval *result, struct timeval *t2, struct timeval 
     return (diff<0);
 }
 
-void timeval_print(char *str, struct timeval *tv)
+void timeval_print(string str, struct timeval *tv)
 {
-    printf("%s %ld sec, %06ld micro sec\n", str, tv->tv_sec, tv->tv_usec);
+	cout << str;
+    printf("%ld sec, %06ld micro sec\n", tv->tv_sec, tv->tv_usec);
 }
 
-int main(){
+int main()
+{
     struct timeval tvDIFF, tvStart, tvEnd;
 
-    /*Timer:*/
-
+    // Timer
     gettimeofday(&tvStart, NULL);
 
-    /*PUT FUNCTION HERE*/
-    BST<int>* Hi = new BST<int>(5);
-    Hi->insert(20);
-    Hi->insert(2);
-    Hi->insert(30);
-    Hi->display();
+    // PUT FUNCTION HERE
+    BST<int>* tree = new BST<int>(5);
+    tree->insert(20);
+    tree->insert(2);
+    tree->insert(30);
+    tree->display();
 
     gettimeofday(&tvEnd, NULL);
 
     timeval_subtract(&tvDIFF, &tvEnd, &tvStart);
     timeval_print ("This took: ", &tvDIFF);
-   /* char str[] = {'T', 'h', 'i', 's', ' ', 't', 'o', 'o', 'k', ':', ' '};
-    timeval_print(str, &tvDIFF);*/
 
     return 0;
 }
-

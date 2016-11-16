@@ -1,115 +1,180 @@
 #include "BinarySearchTree.h"
+
 using namespace std;
 
-
-//There is no default constructor for BST. It must have a value;
-//Sets content to value, and left, right to nullptr.
+// Default construction (contents are undefined)
 template <class T>
-BinarySearchTree<T>::BinarySearchTree(const T &value){
-    content = value;
-    left = nullptr;
-    right = nullptr;
+BinarySearchTree<T>::BinarySearchTree()
+{
+	left = nullptr;
+	right = nullptr;
 }
 
-//For the F U T U R E
+// Value constructor
 template <class T>
-BinarySearchTree<T>::BinarySearchTree(BST<T>* head, BST<T>* left, BST<T>* right){
-    //TODO
+BinarySearchTree<T>::BinarySearchTree(const T &value)
+{
+	content = value;
+	left = nullptr;
+	right = nullptr;
 }
 
-//Delete function for BST
-//THANKS NAXUAL
+// Inserts a new value into the tree recursively
+// Checks value's place in comparison to content, and places appropriately
 template <class T>
-BinarySearchTree<T>::~BinarySearchTree(){
-    //TODO
+bool BinarySearchTree<T>::insert(const T &value)
+{
+	// Left
+	if (value < content) {
+		if (!left) {
+			left = new BinarySearchTree<T>(value);
+			return true;
+		} left->insert(value); // If left node exists
+	}
+	// Right
+	if (value > content) {
+		if (!right) {
+			right = new BinarySearchTree<T>(value);
+			return true;
+		} right->insert(value); // If right node exists
+	}
+	return false;
 }
 
-//Delete function for an entire tree
-template <class Y>
-bool delNode(BST<Y>* node){
-    //TODO
-}
-
-//Inserts a new value into the tree recursively.
-//Checks value's place in comparison to content, and places appropriately.
+// Returns true if no values in tree are equal to any values in this
 template <class T>
-bool BinarySearchTree<T>::insert(const T &value){
-    //
-    if(value < content){
-        //go left
-        if(!left){
-            left = new BST<T>(value);
-            return true;
-        }else{
-            left->insert(value);
-        }
-    }else if(value > content){
-        //go right
-        if(!right){
-            right = new BST<T>(value);
-            return true;
-        }else{
-            right->insert(value);
-        }
-    }
-    return false;
+bool BinarySearchTree<T>::checkIfRepeat(BinarySearchTree<T>* tree) const
+{
+	if (find(tree->content)) return false;
+	if (left && find(tree->left->content))
+		return checkIfRepeat(tree->left);
+	if (right && find(tree->right->content))
+		return checkIfRepeat(tree->right);
+	return true;
 }
 
-//Combine a tree into the tree.
-//F U T U R E
+// Inserts every element in a tree into this tree
 template <class T>
-bool BinarySearchTree<T>::insert(BST<T>* tree){
-    //TODO
+void BinarySearchTree<T>::insertTreeHelper(BinarySearchTree<T>* tree)
+{
+	if (tree->left) insertTreeHelper(tree->left);
+	if (tree->right) insertTreeHelper(tree->right);
+	insert(tree->content);
 }
 
-//Removes a value from the tree.
+// Combine the contents of a tree into this tree
 template <class T>
-bool BinarySearchTree<T>::remove(const T &value){
-    //TODO
+bool BinarySearchTree<T>::insert(BinarySearchTree<T>* tree)
+{
+	if (checkIfRepeat(tree)) insertTreeHelper(tree);
+	return false;
 }
 
-//Finds if a value exists on the tree.
+// Removes a value from the tree
 template <class T>
-bool BinarySearchTree<T>::find(const T &value) const{
-    //TODO
+bool BinarySearchTree<T>::remove(const T& value)
+{
+	if (content == value) {
+		if (!left && !right) delete this;
+		repopulate();
+		return true;
+	}
+	if ((value < content) && left) left->remove(value);
+	if ((value > content) && right) right->remove(value);
+	return false;
 }
 
-//Prints out the current tree.
+// Repopulates after a node is removed
 template <class T>
-void BinarySearchTree<T>::display() const{
-        if (left) left->display();
-        cout << content << endl;
-        if (right) right->display();
+void BinarySearchTree<T>::repopulate()
+{
+	if (left) {
+		content = left->content;
+		left->repopulate();
+	} else {
+		content = right->content;
+		right->repopulate();
+	}
 }
 
-//Returns the pointer to the left BST.
+// Finds if a value exists in this tree
 template <class T>
-BST<T>* BinarySearchTree<T>::getLeft(){
-    return left;
+bool BinarySearchTree<T>::find(const T &value) const
+{
+	if (content == value) return true;
+	if ((value < content) && left) return left->find(value);
+	if ((value > content) && right) return right->find(value);
+	return false;
 }
 
-//Returns the pointer to the right BST.
+// Prints out tree in order from left to right
 template <class T>
-BST<T>* BinarySearchTree<T>::getRight(){
-    return right;
+void BinarySearchTree<T>::displayHelper() const
+{
+	if (left) left->displayHelper();
+	cout << content << " ";
+	if (right) right->displayHelper();
 }
 
-//Sets the left pointer to node.
+// Prints out this tree
 template <class T>
-void BinarySearchTree<T>::setLeft(BST<T>* node){
-    left = node;
+void BinarySearchTree<T>::display() const
+{
+	displayHelper();
+	cout << endl;
 }
 
-//Sets the right pointer to node.
+// Returns the pointer to the left BinarySearchTree
 template <class T>
-void BinarySearchTree<T>::setRight(BST<T>* node){
-    right = node;
+BinarySearchTree<T>* BinarySearchTree<T>::getLeft() const
+{
+	return left;
 }
 
-//Sets the content of the current node to value.
+// Returns the pointer to the right BinarySearchTree
 template <class T>
-void BinarySearchTree<T>::setContent(const T &value){
-    content = value;
+BinarySearchTree<T>* BinarySearchTree<T>::getRight() const
+{
+	return right;
 }
 
+//Sets the content of the current tree to value
+template <class T>
+T BinarySearchTree<T>::getContent() const
+{
+	return content;
+}
+
+//Sets the left pointer to tree
+template <class T>
+void BinarySearchTree<T>::setLeft(BinarySearchTree<T>* tree)
+{
+	if (left) delete left;
+	left = tree;
+}
+
+// Sets the right pointer to tree
+template <class T>
+void BinarySearchTree<T>::setRight(BinarySearchTree<T>* tree)
+{
+	if (right) delete right;
+	right = tree;
+}
+
+// Sets the content of the current tree to value
+template <class T>
+void BinarySearchTree<T>::setContent(const T &value)
+{
+	content = value;
+}
+
+// Default destructor
+template <class T>
+BinarySearchTree<T>::~BinarySearchTree<T>()
+{
+	if (left) delete left;
+	if (right) delete right;
+}
+
+// Add possible types
 template class BinarySearchTree<int>;

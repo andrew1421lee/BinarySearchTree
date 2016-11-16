@@ -1,15 +1,15 @@
-FLAGS=-std=c++11
+FLAGS = -std=c++11
 
-all: BST
+all:	BST
 
-BST: BinarySearchTree.o Driver.o
-	g++ BinarySearchTree.o Driver.o $(FLAGS) -o BST
+BST:	BinarySearchTree.o Driver.o
+	g++ $(FLAGS) BinarySearchTree.o Driver.o -o BST
 
-BinarySearchTree.o: BinarySearchTree.cpp
+BinarySearchTree.o:	BinarySearchTree.cpp
 	g++ $(FLAGS) -c BinarySearchTree.cpp
 
-Driver.o: Driver.cpp
+Driver.o:	Driver.cpp
 	g++ $(FLAGS) -c Driver.cpp
 
 clean:
-	rm -v *.o BST
+	rm -f -v *.o BST

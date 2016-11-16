@@ -2,36 +2,37 @@
 #define _BinarySearchTree_H_
 
 #include <iostream>
-#include <string>
-#include <sys/time.h>
-#define BST BinarySearchTree
 
 template <class T>
-class BinarySearchTree{
-    private:
-        T content;
-        BST<T>* left;
-        BST<T>* right;
-        //template <class Y> friend bool del(Y value);
-        template <class Y> friend bool delNode(BST<Y>* node);
-        //template <class Y> friend BST<T>* getParent(BST<Y>* node);
+class BinarySearchTree
+{
+	private:
 
-    public:
-        BinarySearchTree(const T &value);
-        BinarySearchTree(BST<T>* head, BST<T>* left, BST<T>* right);
-        ~BinarySearchTree();
-        bool insert(const T &value);
-        bool insert(BST<T>* tree);
-        bool remove(const T &value);
-        bool find(const T &value) const;
-        BST<T>* findTree(const T &value);
-        void display() const;
-        BST<T>* getLeft();
-        BST<T>* getRight();
-        void setLeft(BST<T>* node);
-        void setRight(BST<T>* node);
-        void setContent(const T &value);
+		T content;
+		BinarySearchTree<T>* left;
+		BinarySearchTree<T>* right;
 
+		bool checkIfRepeat(BinarySearchTree<T>* tree) const;
+		void repopulate();
+		void insertTreeHelper(BinarySearchTree<T>* tree);
+		void displayHelper() const;
+
+	public:
+
+		BinarySearchTree();
+		BinarySearchTree(const T &value);
+		~BinarySearchTree();
+		bool insert(const T& value);
+		bool insert(BinarySearchTree<T>* tree);
+		bool remove(const T& value);
+		bool find(const T& value) const;
+		void display() const;
+		BinarySearchTree<T>* getLeft() const;
+		BinarySearchTree<T>* getRight() const;
+		T getContent() const;
+		void setLeft(BinarySearchTree<T>* node);
+		void setRight(BinarySearchTree<T>* node);
+		void setContent(const T& value);
 };
 
 #endif
